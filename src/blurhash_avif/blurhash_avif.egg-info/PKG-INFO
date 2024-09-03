@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: blurhash-avif
-Version: 0.1.0
+Version: 0.2.0
 Summary: A library to generate BlurHash and PNG data URLs for AVIF images
 Home-page: https://github.com/ZuidVolt/blurhash-avif
 Author: Zuidvolt

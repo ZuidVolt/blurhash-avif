@@ -1,0 +1,2 @@
+[console_scripts]
+blurhash-avif = blurhash_avif:generate_blurhash_and_data_url_from_avif

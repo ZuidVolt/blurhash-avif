@@ -1,18 +1,17 @@
 from setuptools import setup, find_packages
 
+with open("README.md", "r") as f:  # noqa
+    long_description = f.read()
+
 setup(
     name="blurhash-avif",
-    version="0.2.0",
+    version="0.3.0",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    install_requires=[
-        "numpy",
-        "Pillow[avif]",
-        "blurhash",
-    ],
-    author="Zuidvolt",
+    install_requires=["numpy", "Pillow[avif]", "blurhash", "pathlib", "typing"],
+    author="ZuidVolt",
     description="A library to generate BlurHash and PNG data URLs for AVIF images",
-    long_description=open("README.md").read(),  # noqa
+    long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/ZuidVolt/blurhash-avif",
     project_urls={
@@ -31,4 +30,9 @@ setup(
     include_package_data=True,
     test_suite="tests",
     tests_require=["pytest"],
+    entry_points={
+        "console_scripts": [
+            "blurhash-avif=blurhash_avif:generate_blurhash_and_data_url_from_avif",
+        ],
+    },
 )
