@@ -1,0 +1,9 @@
+AUTHORS.md
+LICENSE
+README.md
+setup.py
+src/blurhash_avif.egg-info/PKG-INFO
+src/blurhash_avif.egg-info/SOURCES.txt
+src/blurhash_avif.egg-info/dependency_links.txt
+src/blurhash_avif.egg-info/requires.txt
+src/blurhash_avif.egg-info/top_level.txt
