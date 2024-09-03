@@ -9,7 +9,7 @@ A Python library to extend the Python Blurhash library to generate BlurHash and 
 
 You can install the library using pip:
 
-```markdown
+```zsh
 pip install blurhash-avif
 ```
 
