@@ -5,7 +5,7 @@ with open("README.md", "r") as f:  # noqa
 
 setup(
     name="blurhash-avif",
-    version="0.3.0",
+    version="0.4.0",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     install_requires=["numpy", "Pillow[avif]", "blurhash", "pathlib", "typing"],
@@ -26,8 +26,9 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.6",
-    package_data={"": ["*.txt", "*.md"]},  # Include README and other text files
+    package_data={"": ["*.txt", "*.md", "py.typed"]},  # Include README, other text files, and py.typed
     include_package_data=True,
+    zip_safe=False,  # Required for mypy to work
     test_suite="tests",
     tests_require=["pytest"],
     entry_points={
