@@ -52,6 +52,15 @@ else:
     print("Failed to generate BlurHash and PNG Data URL")
 ```
 
+## Troubleshooting
+
+- For issues with Pillow's AVIF support, try:
+
+  ```markdown
+  pip uninstall pillow
+  pip install "pillow[avif]"
+  ```
+
 ## Attribution
 
 This package is an unofficial extension of the Python Blurhash library. Blurhash was originally created by Dag Ågren for Wolt. The Blurhash algorithm and its official implementations can be found at the official [Blurhash GitHub repository](https://github.com/woltapp/blurhash).
