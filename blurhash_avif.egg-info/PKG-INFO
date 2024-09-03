@@ -20,11 +20,11 @@ Requires-Dist: Pillow[avif]
 Requires-Dist: blurhash
 
 
-# blurhash-avif
+# BlurHash-AVIF
 
-A Python library to extend the Python Blurhash library to generate BlurHash and PNG data URLs for AVIF images.
+A Python library extending the Python BlurHash implementation to generate BlurHash strings and PNG data URLs for AVIF images.
 
-**Disclaimer:** This is an unofficial extension and has no affiliation with the team or community that developed Blurhash. All credit for the original Blurhash concept and implementation goes to the creators of Blurhash.
+**Disclaimer:** This is an unofficial extension and has no affiliation with the original BlurHash developers. All credit for the BlurHash concept and implementation goes to its creators.
 
 ## Table of Contents
 
@@ -34,23 +34,24 @@ A Python library to extend the Python Blurhash library to generate BlurHash and 
 4. [Usage](#usage)
 5. [Troubleshooting](#troubleshooting)
 6. [Contributing](#contributing)
-7. [License](#license)
+7. [Attribution](#attribution)
+8. [License](#license)
 
 ## Installation
 
-You can install the library using pip:
+Install the library using pip:
 
-```zsh
+```bash
 pip install blurhash-avif
 ```
 
 ## Features
 
-- Generate BlurHash strings for AVIF images
-- Create base64-encoded PNG data URLs for resized images
-- Maintain aspect ratio during image resizing
-- Support for RGB mode images
-- Optimize image loading and improve website performance
+- Generate BlurHash strings from AVIF images
+- Create base64-encoded PNG data URLs from AVIF images
+- Maintain image aspect ratio during processing
+- Support RGB mode images
+- Optimize image loading for improved website performance
 
 ## Requirements
 
@@ -64,9 +65,9 @@ pip install blurhash-avif
 
 The library provides three main functions:
 
-1. `generate_blurhash_from_avif`: Generates a BlurHash string for an AVIF image.
-2. `generate_png_data_url_from_avif`: Generates a base64-encoded PNG data URL for an AVIF image.
-3. `generate_blurhash_and_data_url_from_avif`: Generates both a BlurHash string and a PNG data URL.
+1. `generate_blurhash_from_avif`: Create a BlurHash string from an AVIF image.
+2. `generate_png_data_url_from_avif`: Generate a base64-encoded PNG data URL from an AVIF image.
+3. `generate_blurhash_and_data_url_from_avif`: Produce both a BlurHash string and a PNG data URL.
 
 ### Example Usage
 
@@ -86,7 +87,7 @@ else:
 # Generate PNG data URL
 data_url = generate_png_data_url_from_avif(avif_path)
 if data_url:
-    print(f"PNG Data URL: {data_url[:50]}...")  # Print first 50 characters
+    print(f"PNG Data URL: {data_url[:50]}...") # Print first 50 characters
 else:
     print("Failed to generate PNG Data URL")
 
@@ -94,19 +95,50 @@ else:
 blurhash, data_url = generate_blurhash_and_data_url_from_avif(avif_path)
 if blurhash and data_url:
     print(f"BlurHash: {blurhash}")
-    print(f"PNG Data URL: {data_url[:50]}...")  # Print first 50 characters
+    print(f"PNG Data URL: {data_url[:50]}...") # Print first 50 characters
 else:
     print("Failed to generate BlurHash and PNG Data URL")
+
 ```
 
 ## Troubleshooting
 
-- For issues with Pillow's AVIF support, try:
+If you encounter issues with Pillow's AVIF support, try:
 
-  ```markdown
-  pip uninstall pillow
-  pip install "pillow[avif]"
-  ```
+```bash
+pip uninstall pillow
+pip install "pillow[avif]"
+```
+
+you man need to install the `aviflib` library.
+
+To install the required `aviflib` library, follow these steps:
+
+**On macOS (using Homebrew):**
+
+```bash
+brew install libavif
+```
+
+**On Ubuntu/Debian:**
+
+```bash
+sudo apt-get install libavif-dev
+```
+
+**On windows**
+
+```bash
+pip install aom
+```
+
+or
+
+**On windows (vcpkg)**
+
+```bash
+vcpkg install libavif
+```
 
 ## Contributing
 
@@ -120,10 +152,12 @@ We welcome contributions! To contribute:
 
 ## Attribution
 
-This package is an unofficial extension of the Python Blurhash library. Blurhash was originally created by Dag Ågren for Wolt. The Blurhash algorithm and its official implementations can be found at the official [Blurhash GitHub repository](https://github.com/woltapp/blurhash).
+This package extends the Python BlurHash library. BlurHash was originally created by Dag Ågren for Wolt. The BlurHash algorithm and official implementations are available at the [BlurHash GitHub repository](https://github.com/woltapp/blurhash).
+
+## License
+
+This project is licensed under the Apache License, Version 2.0 with additional commercial terms. See the [LICENSE](LICENSE) file for full details.
 
 ---
 
-## license
-
-This project is licensed under the Apache License, Version 2.0 with Additional commercial terms. See the [LICENSE](LICENSE) file for full detail
+Keywords: BlurHash, AVIF, image processing, Python, base64, PNG, data URL, image optimization, web performance, placeholder images
