@@ -7,7 +7,11 @@ A Python library to extend the Python Blurhash library to generate BlurHash and 
 
 ## Installation
 
-Add installation instructions here.
+You can install the library using pip:
+
+```markdown
+pip install blurhash-avif
+```
 
 ## Usage
 
