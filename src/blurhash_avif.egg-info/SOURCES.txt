@@ -4,9 +4,11 @@ README.md
 setup.py
 src/blurhash_avif/__init__.py
 src/blurhash_avif/blurhash_avif.py
+src/blurhash_avif/py.typed
 src/blurhash_avif.egg-info/PKG-INFO
 src/blurhash_avif.egg-info/SOURCES.txt
 src/blurhash_avif.egg-info/dependency_links.txt
 src/blurhash_avif.egg-info/entry_points.txt
+src/blurhash_avif.egg-info/not-zip-safe
 src/blurhash_avif.egg-info/requires.txt
 src/blurhash_avif.egg-info/top_level.txt
