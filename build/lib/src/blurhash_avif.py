@@ -37,6 +37,7 @@ def generate_png_data_url_from_avif(image_path: str) -> Optional[str]:
 
     :param image_path: Path to the AVIF image file.
     :return: The base64-encoded PNG data URL, or None if an error occurred.
+
     """
     try:
         with Image.open(image_path) as image:
