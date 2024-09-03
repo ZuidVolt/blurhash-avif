@@ -77,6 +77,7 @@ if blurhash and data_url:
     print(f"PNG Data URL: {data_url[:50]}...") # Print first 50 characters
 else:
     print("Failed to generate BlurHash and PNG Data URL")
+
 ```
 
 ## Troubleshooting
@@ -86,6 +87,36 @@ If you encounter issues with Pillow's AVIF support, try:
 ```bash
 pip uninstall pillow
 pip install "pillow[avif]"
+```
+
+you man need to install the `aviflib` library.
+
+To install the required `aviflib` library, follow these steps:
+
+**On macOS (using Homebrew):**
+
+```bash
+brew install libavif
+```
+
+**On Ubuntu/Debian:**
+
+```bash
+sudo apt-get install libavif-dev
+```
+
+**On windows**
+
+```bash
+pip install aom
+```
+
+or
+
+**On windows (vcpkg)**
+
+```bash
+vcpkg install libavif
 ```
 
 ## Contributing
