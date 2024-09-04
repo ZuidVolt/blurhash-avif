@@ -1,5 +1,5 @@
 
-                               Apache License
+                                 Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
 
@@ -187,51 +187,52 @@
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
 
-   ADDITIONAL TERMS:
+    ADDITIONAL TERMS FOR COMMERCIAL USE:
 
-   Additional Terms for Commercial Use:
+    1. Attribution: You must give appropriate and clearly visible credit
+       to Cooper Zuideveld in the documentation or credits of any
+       commercial product that incorporates the Work. This credit should
+       appear in the "About" section, splash screen, or credits page and
+       should be publicly visible.
 
-   1. Attribution: You must give appropriate credit to Cooper Zuideveld in
-      the documentation or credits of any commercial product that
-      incorporates the Work.
+    2. Ethical Use: The Licensor reserves the right to terminate this
+       License if the Work is used in a manner that the Licensor deems to
+       violate ethical standards. The determination of whether a use violates
+       these standards is at the sole discretion of the Licensor. The Licensor
+       is not obligated to provide a detailed explanation of the ethical
+       standards or their application in each case.
 
-   2. Ethical Use: The Licensor reserves the right to revoke this License
-      for any Contributor who uses the Work in a manner that violates the
-      ethical standards set forth by the Licensor.
+    3. Trademark Usage: This License does not grant permission to use the trade
+       names, trademarks, service marks, or product names of the Licensor,
+       except as required for accurate attribution as specified in Section 1.
+       Accurate attribution is limited to the use of the name "Cooper Zuideveld"
+       and does not include logos, slogans, or other branding elements without
+       explicit written permission.
 
-   3. Trademark Usage: This License does not grant permission to use the
-      trade names, trademarks, service marks, or product names of the
-      Licensor, except as required for reasonable and customary use in
-      describing the origin of the Work.
+    4. Limitation of Liability: The limitation of liability terms provided in
+       Section 8 of the Apache License, Version 2.0, apply. Additionally, this
+       Work is not intended for use in high-risk environments, including but not
+       limited to medical devices, aircraft navigation, or nuclear facilities.
+       The Licensor shall not be liable for any damages arising from such uses.
 
-   4. Limitation of Liability: In no event and under no legal theory,
-      whether in tort (including negligence), contract, or otherwise,
-      unless required by applicable law (such as deliberate and grossly
-      negligent acts) or agreed to in writing, shall the Licensor be
-      liable to You for damages, including any direct, indirect, special,
-      incidental, or consequential damages of any character arising as a
-      result of this License or out of the use or inability to use the Work
-      (including but not limited to damages for loss of goodwill,
-      work stoppage, computer failure or malfunction, or any and all other
-      commercial damages or losses), even if the Licensor has been advised
-      of the possibility of such damages.
+    5. Compliance with Laws: You are solely responsible for ensuring that Your
+       use of the Work complies with all applicable local, national, and
+       international laws and regulations, including but not limited to export
+       control laws. The Licensor shall not be liable for any losses arising
+       from Your failure to comply with such laws, including any future legal
+       requirements or updates to existing laws.
 
-   5. Compliance with Laws: You are solely responsible for compliance with
-      applicable laws, regulations, and export controls. The Licensor shall
-      not be liable for any losses arising from Your non-compliance.
-
-   6. Termination: If You fail to comply with any term of this License,
-      then Your rights under this License terminate automatically without
-      notice from the Licensor. Upon termination, You shall cease all use
-      of the Work and destroy all copies of the Work in Your possession
-      or control.
-
-   These terms are in addition to and do not supersede or modify the terms
-   of the Apache License, Version 2.0. By using the Work, You agree to
-   comply with the Apache License, Version 2.0 and these additional terms.
+    6. Termination: If You fail to comply with any term of this License,
+       the Licensor may terminate this License after providing written notice
+       and a 30-day period for You to cure the breach. If the breach is not
+       cured within this period, Your rights under this License will
+       automatically terminate. For breaches that are non-curable or repeated
+       breaches, the Licensor may terminate the License immediately.
+       Upon termination, You must cease all use of the Work and destroy or
+       delete all copies of the Work in Your possession or control.
 
    END OF ADDITIONAL TERMS
-
+	
    Copyright [2024] [Cooper Zuideveld]
 
    Licensed under the Apache License, Version 2.0 (the "License");
