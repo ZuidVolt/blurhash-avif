@@ -135,7 +135,7 @@ This package extends the Python BlurHash library. BlurHash was originally create
 
 ## License
 
-This project is licensed under the Apache License, Version 2.0 with additional commercial terms. See the [LICENSE](LICENSE) file for full details.
+This project is licensed under the Apache License, Version 2.0 with important additional terms, including specific commercial use conditions. Users are strongly advised to read the full [LICENSE](LICENSE) file carefully before using, modifying, or distributing this work. The additional terms contain crucial information about liability, data collection, indemnification, and commercial usage requirements that may significantly affect your rights and obligations.
 
 ---
 
