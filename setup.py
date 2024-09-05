@@ -5,10 +5,10 @@ with open("README.md", "r") as f:  # noqa
 
 setup(
     name="blurhash-avif",
-    version="0.5.0",
+    version="0.6.0",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    install_requires=["numpy", "Pillow[avif]", "blurhash", "pathlib", "typing"],
+    install_requires=["pillow-avif-plugin", "numpy", "Pillow[avif]", "blurhash", "pathlib", "typing",],
     author="ZuidVolt",
     description="A library to generate BlurHash and PNG data URLs for AVIF images",
     long_description=long_description,
@@ -16,7 +16,9 @@ setup(
     url="https://github.com/ZuidVolt/blurhash-avif",
     project_urls={
         "Issue Tracker": "https://github.com/ZuidVolt/blurhash-avif/issues",
-        "Changelog": "https://github.com/ZuidVolt/blurhash-avif/blob/main/CHANGELOG.md",
+        "Changelog": "https://github.com/ZuidVolt/blurhash-avif/releases",
+        "source: ": "https://github.com/ZuidVolt/blurhash-avif",
+        "Documentation": "https://github.com/ZuidVolt/blurhash-avif/blob/main/README.md",
     },
     license="Apache Software License",
     keywords="blurhash avif image processing",
@@ -26,7 +28,7 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.6",
-    package_data={"": ["*.txt", "*.md", "py.typed"]},  # Include README, other text files, and py.typed
+    package_data={"": ["*.txt", "*.md", "py.typed"]},
     include_package_data=True,
     zip_safe=False,  # Required for mypy to work
     test_suite="tests",

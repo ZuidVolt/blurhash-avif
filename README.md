@@ -42,16 +42,26 @@ pip install blurhash-avif
 
 ## Usage
 
-The library provides three main functions:
+The library provides six main functions:
 
 1. `generate_blurhash_from_avif`: Create a BlurHash string from an AVIF image.
 2. `generate_png_data_url_from_avif`: Generate a base64-encoded PNG data URL from an AVIF image.
 3. `generate_blurhash_and_data_url_from_avif`: Produce both a BlurHash string and a PNG data URL.
+4. `batch_generate_blurhash_from_avif`: Generates BlurHash strings for all AVIF images in a given directory.
+5. `batch_generate_png_data_url_from_avif`: Generates base64-encoded PNG data URLs for all AVIF images in a given directory.
+6. `batch_generate_blurhash_and_data_url_from_avif`: Generates BlurHash strings and base64-encoded PNG data URLs for all AVIF images in a given directory.
 
 ### Example Usage
 
 ```python
-from blurhash_avif import generate_blurhash_from_avif, generate_png_data_url_from_avif, generate_blurhash_and_data_url_from_avif
+from blurhash_avif import (
+    generate_blurhash_from_avif,
+    generate_png_data_url_from_avif,
+    generate_blurhash_and_data_url_from_avif,
+    batch_generate_blurhash_from_avif,
+    batch_generate_png_data_url_from_avif,
+    batch_generate_blurhash_and_data_url_from_avif,
+)
 
 # Path to your AVIF file
 avif_path = "path/to/your/image.avif"
@@ -78,6 +88,19 @@ if blurhash and data_url:
 else:
     print("Failed to generate BlurHash and PNG Data URL")
 
+# Batch generate BlurHash strings
+directory = "path/to/your/images"
+blurhash_dict = batch_generate_blurhash_from_avif(directory)
+print(blurhash_dict)
+
+# Batch generate PNG data URLs
+data_url_dict = batch_generate_png_data_url_from_avif(directory)
+print(data_url_dict)
+
+# Batch generate BlurHash strings and PNG data URLs
+blurhash_dict, data_url_dict = batch_generate_blurhash_and_data_url_from_avif(directory)
+print(blurhash_dict)
+print(data_url_dict)
 ```
 
 ## Troubleshooting
