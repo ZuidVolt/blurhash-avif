@@ -5,7 +5,7 @@ with open("README.md", "r") as f:  # noqa
 
 setup(
     name="blurhash-avif",
-    version="0.6.0",
+    version="0.6.1",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     install_requires=["pillow-avif-plugin", "numpy", "Pillow[avif]", "blurhash", "pathlib", "typing",],
