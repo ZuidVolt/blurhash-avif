@@ -55,33 +55,37 @@ The library provides six main functions:
 
 ```python
 from blurhash_avif import (
-    generate_blurhash_from_avif,
-    generate_png_data_url_from_avif,
-    generate_blurhash_and_data_url_from_avif,
-    batch_generate_blurhash_from_avif,
-    batch_generate_png_data_url_from_avif,
-    batch_generate_blurhash_and_data_url_from_avif,
+    encode_image_to_blurhash,
+    encode_image_to_png_data_url,
+    encode_image_to_blurhash_and_png_data_url,
+    batch_encode_image_to_blurhash,
+    batch_encode_image_to_png_data_url,
+    batch_encode_image_to_blurhash_and_png_data_url,
 )
 
 # Path to your AVIF file
+
 avif_path = "path/to/your/image.avif"
 
 # Generate BlurHash string
-blurhash = generate_blurhash_from_avif(avif_path)
+
+blurhash = encode_image_to_blurhash(avif_path)
 if blurhash:
     print(f"BlurHash: {blurhash}")
 else:
     print("Failed to generate BlurHash")
 
 # Generate PNG data URL
-data_url = generate_png_data_url_from_avif(avif_path)
+
+data_url = encode_image_to_png_data_url(avif_path)
 if data_url:
     print(f"PNG Data URL: {data_url[:50]}...") # Print first 50 characters
 else:
     print("Failed to generate PNG Data URL")
 
 # Generate both BlurHash and PNG data URL
-blurhash, data_url = generate_blurhash_and_data_url_from_avif(avif_path)
+
+blurhash, data_url = encode_image_to_blurhash_and_png_data_url(avif_path)
 if blurhash and data_url:
     print(f"BlurHash: {blurhash}")
     print(f"PNG Data URL: {data_url[:50]}...") # Print first 50 characters
@@ -89,18 +93,22 @@ else:
     print("Failed to generate BlurHash and PNG Data URL")
 
 # Batch generate BlurHash strings
+
 directory = "path/to/your/images"
-blurhash_dict = batch_generate_blurhash_from_avif(directory)
+blurhash_dict = batch_encode_image_to_blurhash(directory)
 print(blurhash_dict)
 
 # Batch generate PNG data URLs
-data_url_dict = batch_generate_png_data_url_from_avif(directory)
+
+data_url_dict = batch_encode_image_to_png_data_url(directory)
 print(data_url_dict)
 
 # Batch generate BlurHash strings and PNG data URLs
-blurhash_dict, data_url_dict = batch_generate_blurhash_and_data_url_from_avif(directory)
+
+blurhash_dict, data_url_dict = batch_encode_image_to_blurhash_and_png_data_url(directory)
 print(blurhash_dict)
 print(data_url_dict)
+
 ```
 
 ## Troubleshooting
