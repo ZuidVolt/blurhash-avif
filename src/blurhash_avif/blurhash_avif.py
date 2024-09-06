@@ -92,7 +92,7 @@ def batch_encode_image_to_png_data_url(directory: str) -> Dict[str, Optional[str
     return result
 
 
-def batch_encode_image_to_blurhash_and_png_data_ur(
+def batch_encode_image_to_blurhash_and_png_data_url(
     directory: str,
 ) -> Tuple[Dict[str, Optional[str]], Dict[str, Optional[str]]]:
     """

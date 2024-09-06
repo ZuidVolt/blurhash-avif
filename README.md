@@ -44,12 +44,12 @@ pip install blurhash-avif
 
 The library provides six main functions:
 
-1. `generate_blurhash_from_avif`: Create a BlurHash string from an AVIF image.
-2. `generate_png_data_url_from_avif`: Generate a base64-encoded PNG data URL from an AVIF image.
-3. `generate_blurhash_and_data_url_from_avif`: Produce both a BlurHash string and a PNG data URL.
-4. `batch_generate_blurhash_from_avif`: Generates BlurHash strings for all AVIF images in a given directory.
-5. `batch_generate_png_data_url_from_avif`: Generates base64-encoded PNG data URLs for all AVIF images in a given directory.
-6. `batch_generate_blurhash_and_data_url_from_avif`: Generates BlurHash strings and base64-encoded PNG data URLs for all AVIF images in a given directory.
+1. `encode_image_to_blurhash`: Create a BlurHash string from an AVIF image.
+2. `encode_image_to_png_data_url`: Generate a base64-encoded PNG data URL from an AVIF image.
+3. `encode_image_to_blurhash_and_png_data_url`: Produce both a BlurHash string and a PNG data URL.
+4. `batch_encode_image_to_blurhash`: Generates BlurHash strings for all AVIF images in a given directory.
+5. `batch_encode_image_to_png_data_url`: Generates base64-encoded PNG data URLs for all AVIF images in a given directory.
+6. `batch_encode_image_to_blurhash_and_png_data_url`: Generates BlurHash strings and base64-encoded PNG data URLs for all AVIF images in a given directory.
 
 ### Example Usage
 
