@@ -4,7 +4,7 @@ import pillow_avif  # noqa: F401 RUF100 # type: ignore # Imported for its side e
 import base64
 import blurhash
 from pathlib import Path
-from typing import Tuple, Optional, Dict, List
+from typing import Tuple, Optional, Dict
 
 
 def generate_blurhash_from_avif(image_path: str) -> Optional[str]:

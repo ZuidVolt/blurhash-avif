@@ -5,10 +5,17 @@ with open("README.md", "r") as f:  # noqa
 
 setup(
     name="blurhash-avif",
-    version="0.6.1",
+    version="0.7.0",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    install_requires=["pillow-avif-plugin", "numpy", "Pillow[avif]", "blurhash", "pathlib", "typing",],
+    install_requires=[
+        "pillow-avif-plugin",
+        "numpy",
+        "Pillow[avif]",
+        "blurhash",
+        "pathlib",
+        "typing",
+    ],
     author="ZuidVolt",
     description="A library to generate BlurHash and PNG data URLs for AVIF images",
     long_description=long_description,
