@@ -1,0 +1,26 @@
+.vscode/
+.DS_Store
+pycache/
+__pycache__/
+.ruff_cache/
+.env
+.venv
+test.py
+dist/
+makefile
+tests/image.avif
+.pytest_cache/
+mypy.ini
+.mypy_cache/
+prompt.txt
+# Python cache files
+*.py[cod]
+*$py.class
+# Virtual environments
+venv/
+env/
+# IDE specific files
+.idea/
+.ropeproject/
+# Miscellaneous
+*.log
