@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Any
 
 import blurhash
 import numpy as np
-from PIL import Image
+from PIL import Image as PilImage
 
 if TYPE_CHECKING:
     from numpy.typing import NDArray
@@ -25,8 +25,8 @@ def encode_image_to_blurhash(image_path: str) -> str | None:
         The BlurHash string, or None if an error occurred.
     """
     try:
-        with Image.open(image_path) as image:
-            rgb_image: Image.Image = image
+        with PilImage.open(image_path) as image:
+            rgb_image: PilImage.Image = image
             if image.mode != "RGB":
                 rgb_image = image.convert("RGB")
             max_dimension = 64
@@ -50,8 +50,8 @@ def encode_image_to_png_data_url(image_path: str) -> str | None:
         The base64-encoded PNG data URL, or None if an error occurred.
     """
     try:
-        with Image.open(image_path) as image:
-            rgb_image: Image.Image = image
+        with PilImage.open(image_path) as image:
+            rgb_image: PilImage.Image = image
             if image.mode != "RGB":
                 rgb_image = image.convert("RGB")
             max_dimension = 64
@@ -138,7 +138,7 @@ def batch_encode_image_to_blurhash_and_png_data_url(
 # decode blurhash to png image
 
 
-def decode_blurhash_data_to_image(blurhash_string: str, width: int, height: int) -> Image.Image | None:
+def decode_blurhash_data_to_image(blurhash_string: str, width: int, height: int) -> PilImage.Image | None:
     """Decode a Blurhash string into a PIL Image.
 
     Args:
@@ -151,13 +151,13 @@ def decode_blurhash_data_to_image(blurhash_string: str, width: int, height: int)
     """
     try:
         decoded: Any = blurhash.decode(blurhash_string, width, height)  # type: ignore
-        return Image.fromarray(np.array(decoded, dtype=np.uint8))
+        return PilImage.fromarray(np.array(decoded, dtype=np.uint8))
     except Exception:
         logging.exception("Failed to decode Blurhash string")
         return None
 
 
-def save_image(image: Image.Image, filename: Path) -> None:
+def save_image(image: PilImage.Image, filename: Path) -> None:
     """Save a PIL Image to a file with progressive loading and optimization.
 
     Args:
@@ -184,7 +184,7 @@ def decode_blurhash_to_image(
     """
     output_path.mkdir(parents=True, exist_ok=True)
 
-    decoded_image: Image.Image | None = decode_blurhash_data_to_image(blurhash_string, width, height)
+    decoded_image: PilImage.Image | None = decode_blurhash_data_to_image(blurhash_string, width, height)
     if decoded_image is not None:
         output_filename: Path = output_path / filename.replace(".avif", ".png")
         save_image(decoded_image, output_filename)
