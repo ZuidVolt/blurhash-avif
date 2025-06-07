@@ -15,7 +15,10 @@ mypy-strict-check:
 pyrefly-check:
     pyrefly check .
 
-check: format ruff-check basedpyright-check mypy-strict-check pyrefly-check
+ty-check:
+    uvx ty check .
+
+check: format ruff-check basedpyright-check mypy-strict-check pyrefly-check ty-check
 
 test:
     pytest -v tests/
