@@ -55,7 +55,7 @@ check-uv-lock:
     [ -f ./uv.lock ] && uv lock --check || echo "No uv.lock file found, skipping lock check"
 
 compile-user-dep:
-    uv pip compile pyproject.toml -o requirements.sxt
+    uv pip compile pyproject.toml -o requirements.txt
 
 compile-dev-dep:
     uv pip compile pyproject.toml --all-extras -o requirements-dev.txt
