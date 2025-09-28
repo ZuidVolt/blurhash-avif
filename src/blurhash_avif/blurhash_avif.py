@@ -45,17 +45,17 @@ class ImageSaveError(BlurHashAvifError):
     """Exception raised when saving an image fails."""
 
 
-def encode(image_path: str | Path, x_components: int = 4, y_components: int = 4, max_dimension: int = 64) -> str:  # noqa: D417
+def encode(image_path: str | Path, x_components: int = 4, y_components: int = 4, max_dimension: int = 64) -> str:
     """Generates a BlurHash string for an AVIF image.
 
-    The image is resized to a maximum dimension of 64 pixels before encoding
+    The image is resized to a maximum dimension of 64 pixels before encoding by default
     to optimize performance while maintaining visual quality.
 
     Args:
         image_path: Path to the AVIF image file. Can be a string or Path object.
         x_components: Number of horizontal components (1-9, default: 4).
         y_components: Number of vertical components (1-9, default: 4).
-        max_size: Maximum dimension of the resized image (default: 64).
+        max_dimension: Maximum dimension of the resized image (default: 64).
 
     Returns:
         The BlurHash string representation of the image.
@@ -111,7 +111,7 @@ def encode(image_path: str | Path, x_components: int = 4, y_components: int = 4,
 
             # Convert to numpy array and encode
             image_array = np.array(small_image)
-            return blurhash.encode(image_array, x_components, y_components)
+            return str(blurhash.encode(image_array, x_components, y_components))
 
     except OSError as e:
         msg = f"Failed to open image file: {path_obj}"
@@ -470,9 +470,9 @@ def save_image_png(image: Image.Image, filename: str | Path, optimize: bool = Tr
     try:
         save_kwargs = {"format": "PNG"}
         if optimize:
-            save_kwargs["optimize"] = True
+            save_kwargs["optimize"] = True  # type: ignore [assignment]
         if progressive:
-            save_kwargs["progressive"] = True
+            save_kwargs["progressive"] = True  # type: ignore [assignment]
 
         image.save(path_obj, **save_kwargs)
 
