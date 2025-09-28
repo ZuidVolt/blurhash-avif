@@ -1,16 +1,17 @@
-# tests/__init__.py
 import unittest
 from pathlib import Path
+
 from PIL import Image
+
 from src.blurhash_avif import (
+    generate_blurhash_and_data_url_from_avif,
     generate_blurhash_from_avif,
     generate_png_data_url_from_avif,
-    generate_blurhash_and_data_url_from_avif,
 )
 
 
 class TestBlurhashAvif(unittest.TestCase):
-    def test_generate_blurhash_from_avif(self):
+    def test_generate_blurhash_from_avif(self) -> None:
         # Create a test AVIF image
         image_path = "tests/test_image.avif"
         image = Image.new("RGB", (100, 100), (255, 0, 0))  # Create a 100x100 red image
@@ -28,7 +29,7 @@ class TestBlurhashAvif(unittest.TestCase):
         # Remove the test image
         Path(image_path).unlink()
 
-    def test_generate_png_data_url_from_avif(self):
+    def test_generate_png_data_url_from_avif(self) -> None:
         # Create a test AVIF image
         image_path = "tests/test_image.avif"
         image = Image.new("RGB", (100, 100), (255, 0, 0))  # Create a 100x100 red image
@@ -49,7 +50,7 @@ class TestBlurhashAvif(unittest.TestCase):
         # Remove the test image
         Path(image_path).unlink()
 
-    def test_generate_blurhash_and_data_url_from_avif(self):
+    def test_generate_blurhash_and_data_url_from_avif(self) -> None:
         # Create a test AVIF image
         image_path = "tests/test_image.avif"
         image = Image.new("RGB", (100, 100), (255, 0, 0))  # Create a 100x100 red image

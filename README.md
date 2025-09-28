@@ -1,173 +1,153 @@
+# blurhash-avif
 
-# BlurHash-AVIF
-
-A Python library extending the Python BlurHash implementation to generate BlurHash strings and PNG data URLs for AVIF images.
+A small, focused Python library for generating **BlurHash** placeholders and lightweight **PNG data URLs** from AVIF images — ideal for fast, progressive image loading in web apps and static sites.
 
 **Disclaimer:** This is an unofficial extension and has no affiliation with the original BlurHash developers. All credit for the BlurHash concept and implementation goes to its creators.
 
-## Table of Contents
+This README is intentionally concise: every function is fully documented in the code. Here you will find quick installation, practical examples (single-file + batch + decoding) and troubleshooting guidance that is easier to find here than in the docstrings.
 
-1. [Installation](#installation)
-2. [Features](#features)
-3. [Requirements](#requirements)
-4. [Usage](#usage)
-5. [Troubleshooting](#troubleshooting)
-6. [Contributing](#contributing)
-7. [Attribution](#attribution)
-8. [License](#license)
+---
+
+## Highlights
+
+* Generate BlurHash strings from `.avif` images (compact, text-based placeholders).
+* Produce small PNG data URLs (base64) suitable for inline `src` or `srcset` placeholders.
+* Safe, defensive handling of invalid paths and image issues with explicit exceptions.
+* Batch helpers for directories of AVIFs.
+* Decode BlurHash back into a PNG and save to disk.
+
+---
 
 ## Installation
 
-Install the library using pip:
+**From PyPI (recommended):**
 
 ```bash
 pip install blurhash-avif
 ```
 
-## Features
-
-- Generate BlurHash strings from AVIF images
-- Create base64-encoded PNG data URLs from AVIF images
-- Maintain image aspect ratio during processing
-- Support RGB mode images
-- Optimize image loading for improved website performance
-
-## Requirements
-
-- Python 3.x
-- Pillow (PIL) library with AVIF support
-- NumPy library
-- base64 library
-- blurhash library
-
-## Usage
-
-The library provides six main functions:
-
-1. `encode_image_to_blurhash`: Create a BlurHash string from an AVIF image.
-2. `encode_image_to_png_data_url`: Generate a base64-encoded PNG data URL from an AVIF image.
-3. `encode_image_to_blurhash_and_png_data_url`: Produce both a BlurHash string and a PNG data URL.
-4. `batch_encode_image_to_blurhash`: Generates BlurHash strings for all AVIF images in a given directory.
-5. `batch_encode_image_to_png_data_url`: Generates base64-encoded PNG data URLs for all AVIF images in a given directory.
-6. `batch_encode_image_to_blurhash_and_png_data_url`: Generates BlurHash strings and base64-encoded PNG data URLs for all AVIF images in a given directory.
-
-### Example Usage
-
-```python
-from blurhash_avif import (
-    encode_image_to_blurhash,
-    encode_image_to_png_data_url,
-    encode_image_to_blurhash_and_png_data_url,
-    batch_encode_image_to_blurhash,
-    batch_encode_image_to_png_data_url,
-    batch_encode_image_to_blurhash_and_png_data_url,
-)
-
-# Path to your AVIF file
-
-avif_path = "path/to/your/image.avif"
-
-# Generate BlurHash string
-
-blurhash = encode_image_to_blurhash(avif_path)
-if blurhash:
-    print(f"BlurHash: {blurhash}")
-else:
-    print("Failed to generate BlurHash")
-
-# Generate PNG data URL
-
-data_url = encode_image_to_png_data_url(avif_path)
-if data_url:
-    print(f"PNG Data URL: {data_url[:50]}...") # Print first 50 characters
-else:
-    print("Failed to generate PNG Data URL")
-
-# Generate both BlurHash and PNG data URL
-
-blurhash, data_url = encode_image_to_blurhash_and_png_data_url(avif_path)
-if blurhash and data_url:
-    print(f"BlurHash: {blurhash}")
-    print(f"PNG Data URL: {data_url[:50]}...") # Print first 50 characters
-else:
-    print("Failed to generate BlurHash and PNG Data URL")
-
-# Batch generate BlurHash strings
-
-directory = "path/to/your/images"
-blurhash_dict = batch_encode_image_to_blurhash(directory)
-print(blurhash_dict)
-
-# Batch generate PNG data URLs
-
-data_url_dict = batch_encode_image_to_png_data_url(directory)
-print(data_url_dict)
-
-# Batch generate BlurHash strings and PNG data URLs
-
-blurhash_dict, data_url_dict = batch_encode_image_to_blurhash_and_png_data_url(directory)
-print(blurhash_dict)
-print(data_url_dict)
-
-```
-
-## Troubleshooting
-
-If you encounter issues with Pillow's AVIF support, try:
+**From source (editable / dev):**
 
 ```bash
-pip uninstall pillow
-pip install "pillow[avif]"
+git clone https://github.com/ZuidVolt/blurhash-avif.git
+cd blurhash-avif
+pip install -e .[dev]
 ```
 
-you man need to install the `aviflib` library.
+### Native image codec requirements
 
-To install the required `aviflib` library, follow these steps:
+`Pillow` needs AVIF support. The package depends on `pillow-avif-plugin` (the recommended plugin). You may also need the system `libavif` (or equivalent) for AVIF decoding/encoding.
 
-**On macOS (using Homebrew):**
+* macOS (Homebrew):
 
 ```bash
 brew install libavif
 ```
 
-**On Ubuntu/Debian:**
+* Debian/Ubuntu:
 
 ```bash
 sudo apt-get install libavif-dev
 ```
 
-**On windows**
-
-```bash
-pip install aom
-```
-
-or
-
-**On windows (vcpkg)**
-
-```bash
-vcpkg install libavif
-```
-
-## Contributing
-
-We welcome contributions! To contribute:
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a pull request
-
-## Attribution
-
-This package extends the Python BlurHash library. BlurHash was originally created by Dag Ågren for Wolt. The BlurHash algorithm and official implementations are available at the [BlurHash GitHub repository](https://github.com/woltapp/blurhash).
-
-## License
-
-This project is licensed under the Apache License, Version 2.0 with important additional terms, including specific commercial use conditions. Users are strongly advised to read the full [LICENSE](LICENSE) file carefully before using, modifying, or distributing this work. The additional terms contain crucial information about liability, data collection, indemnification, and commercial usage requirements that may significantly affect your rights and obligations.
+If Pillow cannot read AVIF after installing `pillow-avif-plugin`, reinstall Pillow with AVIF extras or ensure the plugin is installed in the same environment.
 
 ---
 
-Keywords: BlurHash, AVIF, image processing, Python, base64, PNG, data URL, image optimization, web performance, placeholder images
+## Quickstart
+
+```python
+import blurhash_avif as bha
+from pathlib import Path
+
+avif_path = Path("assets/photo.avif")
+
+# 1) Single-file: BlurHash only (use short string operations inline)
+bh = bha.encode(avif_path, x_components=4, y_components=3)
+print("BlurHash preview:", bh[:12].upper(), "…", "len=", len(bh))
+
+# 2) Single-file: PNG data URL (thumbnail) and quick inspect of payload
+pdu = bha.encode_pdu(avif_path, max_dimension=64)
+# split and show the first 60 bytes of the base64 payload
+print("PNG payload (head):", pdu.split(",", 1)[1][:60] + "...")
+
+# 3) Convenience: both (returns tuple[Optional[str], Optional[str]])
+bh, pdu = bha.encode_blurhash_and_pda(avif_path, x_components=4, y_components=4, max_dimension=48)
+print("got both ->", bool(bh), bool(pdu))
+
+# 4) Batch: all .avif files in a directory and chaining dict/list operations
+results = bha.batch_encode("assets/")            # returns dict(filename -> blurhash_or_None)
+valid_files = [name for name, h in results.items() if h]
+print("Valid blurhash files:", ", ".join(valid_files) or "<none>")
+
+# 5) Decode a blurhash back to disk then check existence (pathlib chaining)
+if bh:
+    bha.decode("./decoded/", bh, filename="decoded.png", width=400, height=300, verbose=True)
+    print(Path("./decoded/decoded.png").exists())
+
+# 6) Decode to PIL image and save with PIL API (method chaining on returned object)
+if bh:
+    img = bha.decode_to_pil_format(bh, 200, 150, punch=1.1)
+    out_path = Path("./decoded") / "from_pil.png"
+    img.save(out_path)  # PIL.Image.Image.save returns None; we use pathlib to inspect
+    print(out_path.name, "->", out_path.exists())
+```
+
+---
+
+## Example: Using in a web page
+
+Use the PNG data URL as an inline placeholder while the full AVIF loads.
+
+```html
+<!-- small inline placeholder generated with encode_pdu(...) -->
+<img
+  src="data:image/png;base64,iVBORw0KGgoAAAANS..."
+  data-full-src="/images/photo.avif"
+  alt="Example"
+  width="600"
+  height="400"
+/>
+
+<!-- or use the BlurHash string client-side (if you decode in JS) -->
+<div id="placeholder"></div>
+<script>
+  // decode using a BlurHash JS library to paint a canvas until AVIF is ready
+  // blurhashString is the string returned by encode(...)
+</script>
+```
+
+This package produces the blurhash string and inline data URL; how you integrate that into your web framework or static generator is up to you.
+
+---
+## Exceptions
+
+The library raises a small, intentional set of typed exceptions so you can handle errors ergonomically:
+
+* `BlurHashAvifError` — base class for all library exceptions
+* `BlurHashEncodeError` — blurhash encoding failed
+* `AvifPngDataUrlError` — png data URL creation failed
+* `BlurHashDecodeError` — blurhash decoding failed
+* `PathError` — invalid path or I/O issues
+* `ImageSaveError` — failure when saving decoded images
+
+Use `except BlurHashAvifError:` to catch all library-level errors.
+
+--
+
+## Troubleshooting
+
+* *Pillow can't open `.avif` files:* ensure `pillow-avif-plugin` is installed and that your environment's Pillow is compatible with the plugin. Reinstall Pillow after installing the plugin if needed.
+* *`MemoryError` or slow performance on huge images:* rely on the library's default resize behavior or pre-scale images.
+* *Unexpected `None` in batch maps:* the library stores `None` for any file that failed to encode; inspect logs or call the functions individually for more detailed exceptions.
+
+## Attribution & License
+
+This project is an independent extension around the BlurHash concept. BlurHash was created by Dag Ågren and the Wolt team. Refer to the BlurHash repo for the canonical algorithm and implementations.
+
+Licensed under the Apache-2.0 license — see `LICENSE` for details.
+
+---
+## Contact
+- File issues or feature requests on this repository's GitHub issues page
+---
