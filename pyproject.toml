@@ -20,14 +20,11 @@ classifiers = [
 ]
 
 dependencies = [
-  "numpy<=2.0.2",
+  "numpy",
   "blurhash",
   "Pillow",
   "pillow-avif-plugin",
 ]
-
-[project.scripts]
-blurhash-avif = "blurhash_avif:generate_blurhash_and_data_url_from_avif"
 
 [project.urls]
 Homepage = "https://github.com/ZuidVolt/blurhash-avif"
@@ -84,7 +81,7 @@ convention = "google"
 
 # mypy config: strict mode enabled but aligned to package's requires-python
 [tool.mypy]
-strict = false
+strict = true
 python_version = "3.9"
 ignore_missing_imports = true
 show_error_codes = true

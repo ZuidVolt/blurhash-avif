@@ -45,7 +45,7 @@ class ImageSaveError(BlurHashAvifError):
     """Exception raised when saving an image fails."""
 
 
-def encode(image_path: str | Path, x_components: int = 4, y_components: int = 4) -> str:
+def encode(image_path: str | Path, x_components: int = 4, y_components: int = 4, max_dimension: int = 64) -> str:  # noqa: D417
     """Generates a BlurHash string for an AVIF image.
 
     The image is resized to a maximum dimension of 64 pixels before encoding
@@ -55,6 +55,7 @@ def encode(image_path: str | Path, x_components: int = 4, y_components: int = 4)
         image_path: Path to the AVIF image file. Can be a string or Path object.
         x_components: Number of horizontal components (1-9, default: 4).
         y_components: Number of vertical components (1-9, default: 4).
+        max_size: Maximum dimension of the resized image (default: 64).
 
     Returns:
         The BlurHash string representation of the image.
@@ -98,8 +99,7 @@ def encode(image_path: str | Path, x_components: int = 4, y_components: int = 4)
                 msg = f"Invalid image dimensions: {image.width}x{image.height}"
                 raise BlurHashEncodeError(msg)  # noqa: TRY301
 
-            # Resize to optimize encoding performance
-            max_dimension = 64
+            # Resize
             if image.width > max_dimension or image.height > max_dimension:
                 width = min(image.width, max_dimension)
                 height = int(image.height * (width / image.width))
@@ -162,10 +162,8 @@ def encode_pdu(image_path: str | Path, max_dimension: int = 64) -> str:  # noqa:
     # Process the image
     try:
         with Image.open(path_obj) as original_image:
-            # Ensure RGB mode for consistent PNG encoding
             image = original_image.convert("RGB") if original_image.mode != "RGB" else original_image
 
-            # Guard against invalid image dimensions
             if image.width <= 0 or image.height <= 0:
                 msg = f"Invalid image dimensions: {image.width}x{image.height}"
                 raise AvifPngDataUrlError(msg)  # noqa: TRY301
@@ -174,7 +172,6 @@ def encode_pdu(image_path: str | Path, max_dimension: int = 64) -> str:  # noqa:
             if image.width > max_dimension or image.height > max_dimension:
                 width = min(image.width, max_dimension)
                 height = int(image.height * (width / image.width))
-                # Ensure minimum dimensions
                 height = max(1, height)
                 small_image = image.resize((width, height), Image.Resampling.LANCZOS)
             else:
@@ -185,12 +182,10 @@ def encode_pdu(image_path: str | Path, max_dimension: int = 64) -> str:  # noqa:
             small_image.save(buffer, format="PNG", optimize=True)
             png_bytes = buffer.getvalue()
 
-            # Guard against empty output
             if not png_bytes:
                 msg = "Failed to encode image to PNG: empty result"
                 raise AvifPngDataUrlError(msg)  # noqa: TRY301
 
-            # Create base64 data URL
             base64_png = base64.b64encode(png_bytes).decode("utf-8")
             return f"data:image/png;base64,{base64_png}"
 
@@ -225,11 +220,9 @@ def encode_blurhash_and_pda(
     blurhash_result = None
     data_url_result = None
 
-    # Try BlurHash encoding
     with contextlib.suppress(PathError, BlurHashEncodeError, ValueError):
         blurhash_result = encode(image_path, x_components, y_components)
 
-    # Try PNG data URL encoding
     with contextlib.suppress(PathError, AvifPngDataUrlError, ValueError):
         data_url_result = encode_pdu(image_path, max_dimension)
 
@@ -255,14 +248,12 @@ def batch_encode(
         PathError: If the directory path is invalid or doesn't exist
                   (unless skip_path_exists_check is True).
     """
-    # Convert to Path object
     try:
         directory_path = Path(directory)
     except (TypeError, ValueError) as e:
         msg = f"Invalid directory path type: {type(directory).__name__}"
         raise PathError(msg) from e
 
-    # Validate directory exists
     if not skip_path_exists_check:
         if not directory_path.exists():
             msg = f"Directory does not exist: {directory}"
@@ -303,14 +294,12 @@ def batch_encode_pdu(
         PathError: If the directory path is invalid or doesn't exist
                   (unless skip_path_exists_check is True).
     """
-    # Convert to Path object
     try:
         directory_path = Path(directory)
     except (TypeError, ValueError) as e:
         msg = f"Invalid directory path type: {type(directory).__name__}"
         raise PathError(msg) from e
 
-    # Validate directory exists
     if not skip_path_exists_check:
         if not directory_path.exists():
             msg = f"Directory does not exist: {directory}"
@@ -359,14 +348,12 @@ def batch_encode_blurhash_and_pda(
         PathError: If the directory path is invalid or doesn't exist
                   (unless skip_path_exists_check is True).
     """
-    # Convert to Path object
     try:
         directory_path = Path(directory)
     except (TypeError, ValueError) as e:
         msg = f"Invalid directory path type: {type(directory).__name__}"
         raise PathError(msg) from e
 
-    # Validate directory exists
     if not skip_path_exists_check:
         if not directory_path.exists():
             msg = f"Directory does not exist: {directory}"
@@ -403,7 +390,6 @@ def decode_to_pil_format(blurhash_string: str, width: int, height: int, punch: f
         ValueError: If dimensions are invalid or blurhash_string is empty.
         BlurHashDecodeError: If the BlurHash string cannot be decoded.
     """
-    # Validate inputs
     if not blurhash_string or not blurhash_string.strip():
         msg = "BlurHash string cannot be empty"
         raise ValueError(msg)
@@ -424,15 +410,12 @@ def decode_to_pil_format(blurhash_string: str, width: int, height: int, punch: f
     try:
         decoded = blurhash.decode(blurhash_string, width, height, punch=punch)
 
-        # Validate decoded result
         if decoded is None:
             msg = "Decoder returned None"
             raise BlurHashDecodeError(msg)  # noqa: TRY301
 
-        # Convert to PIL Image
         image_array = np.array(decoded, dtype=np.uint8)
 
-        # Validate array shape
         if image_array.shape[:2] != (height, width):
             msg = f"Unexpected decoded shape: {image_array.shape}, expected ({height}, {width}, 3)"
             raise BlurHashDecodeError(msg)  # noqa: TRY301
@@ -462,7 +445,6 @@ def save_image_png(image: Image.Image, filename: str | Path, optimize: bool = Tr
         ValueError: If the image or filename is invalid.
         ImageSaveError: If the image cannot be saved.
     """
-    # Validate inputs
     if image is None:
         msg = "Image cannot be None"
         raise ValueError(msg)
@@ -471,14 +453,12 @@ def save_image_png(image: Image.Image, filename: str | Path, optimize: bool = Tr
         msg = "Filename cannot be empty"
         raise ValueError(msg)
 
-    # Convert to Path for validation
     try:
         path_obj = Path(filename)
     except (TypeError, ValueError) as e:
         msg = f"Invalid filename type: {type(filename).__name__}"
         raise ValueError(msg) from e
 
-    # Ensure parent directory exists
     parent_dir = path_obj.parent
     if parent_dir != Path() and not parent_dir.exists():
         try:
@@ -487,7 +467,6 @@ def save_image_png(image: Image.Image, filename: str | Path, optimize: bool = Tr
             msg = f"Failed to create directory: {parent_dir}"
             raise ImageSaveError(msg) from e
 
-    # Save the image
     try:
         save_kwargs = {"format": "PNG"}
         if optimize:
@@ -535,12 +514,10 @@ def decode(  # noqa: PLR0917
         BlurHashDecodeError: If the BlurHash cannot be decoded.
         ImageSaveError: If the image cannot be saved.
     """
-    # Validate filename
     if not filename or not filename.strip():
         msg = "Filename cannot be empty"
         raise ValueError(msg)
 
-    # Convert and create output directory
     try:
         output_path_obj = Path(output_path)
         output_path_obj.mkdir(parents=True, exist_ok=True)
@@ -551,13 +528,10 @@ def decode(  # noqa: PLR0917
         msg = f"Failed to create output directory: {output_path}"
         raise PathError(msg) from e
 
-    # Decode the BlurHash
     decoded_image = decode_to_pil_format(blurhash_string, width, height, punch)
 
-    # Prepare output filename
     output_filename = output_path_obj / filename.replace(".avif", ".png")
 
-    # Save the image
     save_image_png(decoded_image, output_filename, optimize, progressive)
 
     if verbose:
