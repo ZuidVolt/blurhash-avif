@@ -169,9 +169,9 @@ def encode_pdu(image_path: str | Path, max_dimension: int = 64) -> str:  # noqa:
 
             # Calculate resize dimensions maintaining aspect ratio
             if image.width > max_dimension or image.height > max_dimension:
-                width = min(image.width, max_dimension)
-                height = int(image.height * (width / image.width))
-                height = max(1, height)
+                scale = max(image.width, image.height) / float(max_dimension)
+                width = max(1, int(image.width / scale))
+                height = max(1, int(image.height / scale))
                 small_image = image.resize((width, height), Image.Resampling.LANCZOS)
             else:
                 small_image = image
