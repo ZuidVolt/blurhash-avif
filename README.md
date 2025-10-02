@@ -62,7 +62,7 @@ from pathlib import Path
 
 avif_path = Path("assets/photo.avif")
 
-# 1) Single-file: BlurHash only (use short string operations inline)
+# 1) Single-file: BlurHash only
 bh = bha.encode(avif_path, x_components=4, y_components=3)
 print("BlurHash preview:", bh[:12].upper(), "…", "len=", len(bh))
 
@@ -75,17 +75,17 @@ print("PNG payload (head):", pdu.split(",", 1)[1][:60] + "...")
 bh, pdu = bha.encode_blurhash_and_pda(avif_path, x_components=4, y_components=4, max_dimension=48)
 print("got both ->", bool(bh), bool(pdu))
 
-# 4) Batch: all .avif files in a directory and chaining dict/list operations
+# 4) Batch: all .avif files in a directory
 results = bha.batch_encode("assets/")            # returns dict(filename -> blurhash_or_None)
 valid_files = [name for name, h in results.items() if h]
 print("Valid blurhash files:", ", ".join(valid_files) or "<none>")
 
-# 5) Decode a blurhash back to disk then check existence (pathlib chaining)
+# 5) Decode a blurhash back to disk then check existence
 if bh:
     bha.decode("./decoded/", bh, filename="decoded.png", width=400, height=300, verbose=True)
     print(Path("./decoded/decoded.png").exists())
 
-# 6) Decode to PIL image and save with PIL API (method chaining on returned object)
+# 6) Decode to PIL image and save with PIL API
 if bh:
     img = bha.decode_to_pil_format(bh, 200, 150, punch=1.1)
     out_path = Path("./decoded") / "from_pil.png"
