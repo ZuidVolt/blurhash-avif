@@ -14,6 +14,7 @@ from .blurhash_avif import (
     encode,
     encode_blurhash_and_pdu,
     encode_pdu,
+    is_valid_blurhash,
     save_image_png,
 )
 
@@ -32,5 +33,6 @@ __all__ = [
     "encode",
     "encode_blurhash_and_pdu",
     "encode_pdu",
+    "is_valid_blurhash",
     "save_image_png",
 ]
