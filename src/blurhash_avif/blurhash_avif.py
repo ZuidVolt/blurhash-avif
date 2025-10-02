@@ -167,11 +167,10 @@ def encode_pdu(image_path: str | Path, max_dimension: int = 64) -> str:  # noqa:
                 msg = f"Invalid image dimensions: {image.width}x{image.height}"
                 raise AvifPngDataUrlError(msg)  # noqa: TRY301
 
-            # Calculate resize dimensions maintaining aspect ratio
-            if image.width > max_dimension or image.height > max_dimension:
-                scale = max(image.width, image.height) / float(max_dimension)
-                width = max(1, int(image.width / scale))
-                height = max(1, int(image.height / scale))
+            # Calculate resize dimensions maintaining aspect ratio (mirror logic from encode)
+            width = min(image.width, max_dimension)
+            height = max(1, int(image.height * (width / image.width)))
+            if width != image.width or height != image.height:
                 small_image = image.resize((width, height), Image.Resampling.LANCZOS)
             else:
                 small_image = image
