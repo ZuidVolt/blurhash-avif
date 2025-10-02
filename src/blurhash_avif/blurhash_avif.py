@@ -10,7 +10,6 @@ This module provides utilities for:
 from __future__ import annotations
 
 import base64
-import contextlib
 from io import BytesIO
 from pathlib import Path
 from typing import Any, Optional
@@ -215,15 +214,39 @@ def encode_blurhash_and_pda(
     Returns:
         A tuple of (blurhash_string, png_data_url). Either value may be None
         if its respective encoding fails.
+
+    Raises:
+        ValueError: If the image path is invalid or the BlurHash encoding fails.
+        AvifPngDataUrlError: If the PNG data URL encoding fails.
+        BlurHashEncodeError: If the BlurHash encoding fails.
+        PathError: If the image path is invalid.
     """
     blurhash_result = None
     data_url_result = None
 
-    with contextlib.suppress(PathError, BlurHashEncodeError, ValueError):
+    try:
         blurhash_result = encode(image_path, x_components, y_components)
+    except PathError as e:
+        msg = f"Invalid image path: {image_path}"
+        raise PathError(msg) from e
+    except ValueError as e:
+        msg = f"BlurHash encoding failed: {e}"
+        raise ValueError(msg) from e
+    except BlurHashEncodeError as e:
+        msg = f"BlurHash encoding failed: {e}"
+        raise BlurHashEncodeError(msg) from e
 
-    with contextlib.suppress(PathError, AvifPngDataUrlError, ValueError):
+    try:
         data_url_result = encode_pdu(image_path, max_dimension)
+    except PathError as e:
+        msg = f"Invalid image path: {image_path}"
+        raise PathError(msg) from e
+    except ValueError as e:
+        msg = f"BlurHash encoding failed: {e}"
+        raise ValueError(msg) from e
+    except AvifPngDataUrlError as e:
+        msg = f"BlurHash encoding failed: {e}"
+        raise AvifPngDataUrlError(msg) from e
 
     return blurhash_result, data_url_result
 
