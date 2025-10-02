@@ -101,11 +101,10 @@ def encode(image_path: str | Path, x_components: int = 4, y_components: int = 4,
 
             # Resize
             if image.width > max_dimension or image.height > max_dimension:
-                width = min(image.width, max_dimension)
-                height = int(image.height * (width / image.width))
-                # Ensure minimum dimensions
-                height = max(1, height)
-                small_image = image.resize((width, height), Image.Resampling.LANCZOS)
+                scale = max(image.width, image.height) / float(max_dimension)
+                new_width = max(1, int(image.width / scale))
+                new_height = max(1, int(image.height / scale))
+                small_image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
             else:
                 small_image = image
 
