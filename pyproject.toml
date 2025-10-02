@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "blurhash-avif"
-version = "0.8.1"
+version = "0.8.4"
 description = "A library to generate BlurHash and PNG data URLs for AVIF images"
 readme = "README.md"
 readme-content-type = "text/markdown"
