@@ -44,6 +44,24 @@ class ImageSaveError(BlurHashAvifError):
     """Exception raised when saving an image fails."""
 
 
+def _validate_and_resolve_path(image_path: str | Path) -> Path:
+    """Validate and convert image_path to a Path object."""
+    try:
+        path_obj = Path(image_path)
+    except (TypeError, ValueError) as e:
+        msg = f"Invalid image path type: {type(image_path).__name__}"
+        raise PathError(msg) from e
+
+    if not path_obj.exists():
+        msg = f"Image file does not exist: {path_obj}"
+        raise PathError(msg)
+
+    if not path_obj.is_file():
+        msg = f"Path is not a file: {path_obj}"
+        raise PathError(msg)
+    return path_obj
+
+
 def encode(image_path: str | Path, x_components: int = 4, y_components: int = 4, max_dimension: int = 64) -> str:
     """Generates a BlurHash string for an AVIF image.
 
@@ -73,19 +91,7 @@ def encode(image_path: str | Path, x_components: int = 4, y_components: int = 4,
         raise ValueError(msg)
 
     # Convert to Path object and validate
-    try:
-        path_obj = Path(image_path)
-    except (TypeError, ValueError) as e:
-        msg = f"Invalid image path type: {type(image_path).__name__}"
-        raise PathError(msg) from e
-
-    if not path_obj.exists():
-        msg = f"Image file does not exist: {path_obj}"
-        raise PathError(msg)
-
-    if not path_obj.is_file():
-        msg = f"Path is not a file: {path_obj}"
-        raise PathError(msg)
+    path_obj: Path = _validate_and_resolve_path(image_path)
 
     # Process the image
     try:
@@ -119,7 +125,7 @@ def encode(image_path: str | Path, x_components: int = 4, y_components: int = 4,
         raise BlurHashEncodeError(msg) from e
 
 
-def encode_pdu(image_path: str | Path, max_dimension: int = 64) -> str:  # noqa: C901
+def encode_pdu(image_path: str | Path, max_dimension: int = 64) -> str:
     """Generates a base64-encoded PNG data URL for an AVIF image.
 
     The image is resized to the specified maximum dimension to create
@@ -143,19 +149,7 @@ def encode_pdu(image_path: str | Path, max_dimension: int = 64) -> str:  # noqa:
         raise ValueError(msg)
 
     # Convert to Path object and validate
-    try:
-        path_obj = Path(image_path)
-    except (TypeError, ValueError) as e:
-        msg = f"Invalid image path type: {type(image_path).__name__}"
-        raise PathError(msg) from e
-
-    if not path_obj.exists():
-        msg = f"Image file does not exist: {path_obj}"
-        raise PathError(msg)
-
-    if not path_obj.is_file():
-        msg = f"Path is not a file: {path_obj}"
-        raise PathError(msg)
+    path_obj: Path = _validate_and_resolve_path(image_path)
 
     # Process the image
     try:
@@ -197,7 +191,7 @@ def encode_pdu(image_path: str | Path, max_dimension: int = 64) -> str:  # noqa:
         raise AvifPngDataUrlError(msg) from e
 
 
-def encode_blurhash_and_pda(
+def encode_blurhash_and_pdu(
     image_path: str | Path, x_components: int = 4, y_components: int = 4, max_dimension: int = 64
 ) -> tuple[Optional[str], Optional[str]]:
     """Generates both a BlurHash and a PNG data URL for an AVIF image.
@@ -251,6 +245,25 @@ def encode_blurhash_and_pda(
     return blurhash_result, data_url_result
 
 
+def _validate_directory(directory: str | Path, skip_path_exists_check: bool = False) -> Path:
+    """Validate and convert directory to a Path object."""
+    try:
+        directory_path = Path(directory)
+    except (TypeError, ValueError) as e:
+        msg = f"Invalid directory path type: {type(directory).__name__}"
+        raise PathError(msg) from e
+
+    if not skip_path_exists_check:
+        if not directory_path.exists():
+            msg = f"Directory does not exist: {directory}"
+            raise PathError(msg)
+        if not directory_path.is_dir():
+            msg = f"Path is not a directory: {directory}"
+            raise PathError(msg)
+
+    return directory_path
+
+
 def batch_encode(
     directory: str | Path, skip_path_exists_check: bool = False, x_components: int = 4, y_components: int = 4
 ) -> dict[str, Optional[str]]:
@@ -270,19 +283,7 @@ def batch_encode(
         PathError: If the directory path is invalid or doesn't exist
                   (unless skip_path_exists_check is True).
     """
-    try:
-        directory_path = Path(directory)
-    except (TypeError, ValueError) as e:
-        msg = f"Invalid directory path type: {type(directory).__name__}"
-        raise PathError(msg) from e
-
-    if not skip_path_exists_check:
-        if not directory_path.exists():
-            msg = f"Directory does not exist: {directory}"
-            raise PathError(msg)
-        if not directory_path.is_dir():
-            msg = f"Path is not a directory: {directory}"
-            raise PathError(msg)
+    directory_path = _validate_directory(directory, skip_path_exists_check=skip_path_exists_check)
 
     result: dict[str, Optional[str]] = {}
 
@@ -317,19 +318,7 @@ def batch_encode_pdu(
         PathError: If the directory path is invalid or doesn't exist
                   (unless skip_path_exists_check is True).
     """
-    try:
-        directory_path = Path(directory)
-    except (TypeError, ValueError) as e:
-        msg = f"Invalid directory path type: {type(directory).__name__}"
-        raise PathError(msg) from e
-
-    if not skip_path_exists_check:
-        if not directory_path.exists():
-            msg = f"Directory does not exist: {directory}"
-            raise PathError(msg)
-        if not directory_path.is_dir():
-            msg = f"Path is not a directory: {directory}"
-            raise PathError(msg)
+    directory_path = _validate_directory(directory, skip_path_exists_check=skip_path_exists_check)
 
     result: dict[str, Optional[str]] = {}
 
@@ -346,7 +335,7 @@ def batch_encode_pdu(
     return result
 
 
-def batch_encode_blurhash_and_pda(
+def batch_encode_blurhash_and_pdu(
     directory: str | Path,
     skip_path_exists_check: bool = False,
     x_components: int = 4,
@@ -372,26 +361,14 @@ def batch_encode_blurhash_and_pda(
         PathError: If the directory path is invalid or doesn't exist
                   (unless skip_path_exists_check is True).
     """
-    try:
-        directory_path = Path(directory)
-    except (TypeError, ValueError) as e:
-        msg = f"Invalid directory path type: {type(directory).__name__}"
-        raise PathError(msg) from e
-
-    if not skip_path_exists_check:
-        if not directory_path.exists():
-            msg = f"Directory does not exist: {directory}"
-            raise PathError(msg)
-        if not directory_path.is_dir():
-            msg = f"Path is not a directory: {directory}"
-            raise PathError(msg)
+    directory_path = _validate_directory(directory, skip_path_exists_check=skip_path_exists_check)
 
     blurhash_dict: dict[str, Optional[str]] = {}
     data_url_dict: dict[str, Optional[str]] = {}
 
     # Process each AVIF file
     for image_path in directory_path.glob("*.avif"):
-        blurhash_str, data_url = encode_blurhash_and_pda(image_path, x_components, y_components, max_dimension)
+        blurhash_str, data_url = encode_blurhash_and_pdu(image_path, x_components, y_components, max_dimension)
         blurhash_dict[image_path.name] = blurhash_str
         data_url_dict[image_path.name] = data_url
 

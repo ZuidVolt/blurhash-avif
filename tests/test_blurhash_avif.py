@@ -9,7 +9,7 @@ try:
         BlurHashEncodeError,
         PathError,
         encode,
-        encode_blurhash_and_pda,
+        encode_blurhash_and_pdu,
         encode_pdu,
     )
 except ImportError:
@@ -18,7 +18,7 @@ except ImportError:
         BlurHashEncodeError,
         PathError,
         encode,
-        encode_blurhash_and_pda,
+        encode_blurhash_and_pdu,
         encode_pdu,
     )
 
@@ -70,7 +70,7 @@ class TestBlurhashAvif(unittest.TestCase):
         image.save(image_path, "AVIF")
 
         # Generate the BlurHash and PNG data URL
-        blurhash, data_url = encode_blurhash_and_pda(image_path)
+        blurhash, data_url = encode_blurhash_and_pdu(image_path)
 
         # Check that the BlurHash is not None
         self.assertIsNotNone(blurhash)
