@@ -48,7 +48,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
       - name: Run Linting
-      - name: Run Linting
         run: ruff check --output-format=github . && ruff format --check --diff --preview .
       - name: Run Static Type Checking
         run: mypy src/ tests/

@@ -268,7 +268,8 @@ def batch_encode(
         try:
             blurhash_str = encode(image_path, x_components, y_components)
             result[image_path.name] = blurhash_str
-        except (BlurHashEncodeError, PathError, ValueError):  # noqa: PERF203 # this operation is expensive
+        # this operation is expensive
+        except (BlurHashEncodeError, PathError, ValueError):  # noqa: PERF203  # intentional: allow partial batch success
             # Store None for failed encodings
             result[image_path.name] = None
 
