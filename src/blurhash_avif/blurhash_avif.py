@@ -471,8 +471,7 @@ def save_image_png(image: Image.Image, filename: str | Path, optimize: bool = Tr
         if optimize:
             save_kwargs["optimize"] = True  # type: ignore [assignment]
         if progressive:
-            save_kwargs["progressive"] = True  # type: ignore [assignment]
-
+            save_kwargs["interlace"] = 1
         image.save(path_obj, **save_kwargs)
 
     except OSError as e:
