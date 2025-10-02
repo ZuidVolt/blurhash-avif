@@ -3,8 +3,8 @@ name: "Publish"
 # Trigger on tags starting with "v", e.g. v0.1.0
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - main
 
 jobs:
   publish:
