@@ -3,14 +3,24 @@ from pathlib import Path
 
 from PIL import Image
 
-from src.blurhash_avif import (
-    AvifPngDataUrlError,
-    BlurHashEncodeError,
-    PathError,
-    encode,
-    encode_blurhash_and_pda,
-    encode_pdu,
-)
+try:
+    from src.blurhash_avif import (
+        AvifPngDataUrlError,
+        BlurHashEncodeError,
+        PathError,
+        encode,
+        encode_blurhash_and_pda,
+        encode_pdu,
+    )
+except ImportError:
+    from blurhash_avif import (
+        AvifPngDataUrlError,
+        BlurHashEncodeError,
+        PathError,
+        encode,
+        encode_blurhash_and_pda,
+        encode_pdu,
+    )
 
 
 class TestBlurhashAvif(unittest.TestCase):
