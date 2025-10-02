@@ -315,7 +315,8 @@ def batch_encode_pdu(
         try:
             data_url = encode_pdu(image_path, max_dimension)
             result[image_path.name] = data_url
-        except (AvifPngDataUrlError, PathError, ValueError):  # noqa: PERF203 # this operation is expensive
+        # this operation is expensive
+        except (AvifPngDataUrlError, PathError, ValueError):  # noqa: PERF203  # intentional: allow partial batch success
             # Store None for failed encodings
             result[image_path.name] = None
 
@@ -375,7 +376,7 @@ def batch_encode_blurhash_and_pda(
 
 
 def decode_to_pil_format(blurhash_string: str, width: int, height: int, punch: float = 1.0) -> Image.Image:
-    """Decode a BlurHash string into a PIL Image.
+    """Decode a BlurHash string into a PIL Image object.
 
     Args:
         blurhash_string: The BlurHash string to decode.
