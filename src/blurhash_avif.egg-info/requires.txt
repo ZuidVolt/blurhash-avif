@@ -1,6 +1,0 @@
-pillow-avif-plugin
-numpy
-Pillow[avif]
-blurhash
-pathlib
-typing
