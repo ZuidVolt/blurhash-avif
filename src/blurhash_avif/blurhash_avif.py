@@ -13,7 +13,7 @@ import base64
 import contextlib
 from io import BytesIO
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 
 import blurhash
 import numpy as np
@@ -467,9 +467,9 @@ def save_image_png(image: Image.Image, filename: str | Path, optimize: bool = Tr
             raise ImageSaveError(msg) from e
 
     try:
-        save_kwargs = {"format": "PNG"}
+        save_kwargs: dict[str, Any] = {"format": "PNG"}
         if optimize:
-            save_kwargs["optimize"] = True  # type: ignore [assignment]
+            save_kwargs["optimize"] = True
         if progressive:
             save_kwargs["interlace"] = 1
         image.save(path_obj, **save_kwargs)
