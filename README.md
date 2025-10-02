@@ -1,6 +1,6 @@
 # blurhash-avif
 
-A small, focused Python library for generating **BlurHash** placeholders and lightweight **PNG data URLs** from AVIF images — ideal for fast, progressive image loading in web apps and static sites.
+A small library for generating **BlurHash** placeholders and lightweight **PNG data URLs** from AVIF images — ideal for fast, progressive image loading in web apps and static sites.
 
 **Disclaimer:** This is an unofficial extension and has no affiliation with the original BlurHash developers. All credit for the BlurHash concept and implementation goes to its creators.
 
@@ -133,21 +133,24 @@ The library raises a small, intentional set of typed exceptions so you can handl
 
 Use `except BlurHashAvifError:` to catch all library-level errors.
 
---
+---
 
 ## Troubleshooting
 
 * *Pillow can't open `.avif` files:* ensure `pillow-avif-plugin` is installed and that your environment's Pillow is compatible with the plugin. Reinstall Pillow after installing the plugin if needed.
+  ```bash
+  pip uninstall pillow
+  pip install "pillow[avif]"
+  ```
 * *`MemoryError` or slow performance on huge images:* rely on the library's default resize behavior or pre-scale images.
 * *Unexpected `None` in batch maps:* the library stores `None` for any file that failed to encode; inspect logs or call the functions individually for more detailed exceptions.
 
+---
+
 ## Attribution & License
 
-This project is an independent extension around the BlurHash concept. BlurHash was created by Dag Ågren and the Wolt team. Refer to the BlurHash repo for the canonical algorithm and implementations.
+This package extends the Python BlurHash library. BlurHash was originally created by Dag Ågren for Wolt. The BlurHash algorithm and official implementations are available at the [BlurHash GitHub repository](https://github.com/woltapp/blurhash).
 
-Licensed under the Apache-2.0 license — see `LICENSE` for details.
+This project is licensed under the Apache License, Version 2.0 with important additional terms, including specific commercial use conditions. Users are strongly advised to read the full [LICENSE](LICENSE) file carefully before using, modifying, or distributing this work. The additional terms contain crucial information about liability, data collection, indemnification, and commercial usage requirements that may significantly affect your rights and obligations.
 
----
-## Contact
-- File issues or feature requests on this repository's GitHub issues page
 ---

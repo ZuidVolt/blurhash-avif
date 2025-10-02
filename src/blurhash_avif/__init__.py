@@ -1,5 +1,11 @@
 # src/blurhash_avif/__init__.py
 from .blurhash_avif import (
+    AvifPngDataUrlError,
+    BlurHashAvifError,
+    BlurHashDecodeError,
+    BlurHashEncodeError,
+    ImageSaveError,
+    PathError,
     batch_encode,
     batch_encode_blurhash_and_pda,
     batch_encode_pdu,
@@ -12,6 +18,12 @@ from .blurhash_avif import (
 )
 
 __all__ = [
+    "AvifPngDataUrlError",
+    "BlurHashAvifError",
+    "BlurHashDecodeError",
+    "BlurHashEncodeError",
+    "ImageSaveError",
+    "PathError",
     "batch_encode",
     "batch_encode_blurhash_and_pda",
     "batch_encode_pdu",

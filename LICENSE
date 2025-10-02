@@ -189,7 +189,7 @@
 
    ADDITIONAL TERMS:
 
-    1. Limitation of Liability and Waiver of Legal Action: 
+    1. Limitation of Liability and Waiver of Legal Action:
        a. To the extent permitted by applicable law, and except when
           otherwise stated in writing, the Licensor provides the Work
           (and each Contributor provides its Contributions) on an
@@ -200,8 +200,8 @@
 
        b. By using this Work, to the fullest extent permitted by
           applicable law, You agree to waive any right to sue or
-          take legal action against the Licensor (Cooper Zuideveld)
-          for any reason related to this Work or any other work
+          take legal action against the Licensor for any
+          reason related to this Work or any other work
           created by the Licensor, except for claims arising from
           gross negligence or wilful misconduct. This waiver extends
           to all potential claims, known or unknown, arising from the
@@ -211,7 +211,7 @@
           apply to any rights or claims that may arise after you cease
           using the Work.
 
-    2. Data Collection and Use: 
+    2. Data Collection and Use:
        a. By using this Work, You grant the Licensor the right to
           collect, use, and sell any data generated through Your use
           of the Work. This includes, but is not limited to, personal
@@ -254,7 +254,7 @@
     ADDITIONAL TERMS FOR COMMERCIAL USE:
 
     1. Attribution: You must give appropriate and clearly visible credit
-       to Cooper Zuideveld in the documentation or credits of any
+       to the licensor in the documentation or credits of any
        commercial product that incorporates the Work. This credit should
        appear in the "About" section, splash screen, or credits page and
        should be publicly visible.
@@ -269,7 +269,7 @@
     3. Trademark Usage: This License does not grant permission to use the trade
        names, trademarks, service marks, or product names of the Licensor,
        except as required for accurate attribution as specified in Section 1.
-       Accurate attribution is limited to the use of the name "Cooper Zuideveld"
+       Accurate attribution is limited to the use of the name of the licensor
        and does not include logos, slogans, or other branding elements without
        explicit written permission.
 
@@ -297,7 +297,7 @@
 
    END OF ADDITIONAL TERMS
 
-   Copyright [2024] [Cooper Zuideveld]
+   Copyright [2024] [zuidvolt]
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

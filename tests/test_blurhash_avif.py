@@ -4,9 +4,12 @@ from pathlib import Path
 from PIL import Image
 
 from src.blurhash_avif import (
-    generate_blurhash_and_data_url_from_avif,
-    generate_blurhash_from_avif,
-    generate_png_data_url_from_avif,
+    AvifPngDataUrlError,
+    BlurHashEncodeError,
+    PathError,
+    encode,
+    encode_blurhash_and_pda,
+    encode_pdu,
 )
 
 
@@ -18,7 +21,7 @@ class TestBlurhashAvif(unittest.TestCase):
         image.save(image_path, "AVIF")
 
         # Generate the BlurHash
-        blurhash = generate_blurhash_from_avif(image_path)
+        blurhash = encode(image_path)
 
         # Check that the BlurHash is not None
         self.assertIsNotNone(blurhash)
@@ -36,7 +39,7 @@ class TestBlurhashAvif(unittest.TestCase):
         image.save(image_path, "AVIF")
 
         # Generate the PNG data URL
-        data_url = generate_png_data_url_from_avif(image_path)
+        data_url = encode_pdu(image_path)
 
         # Check that the data URL is not None
         self.assertIsNotNone(data_url)
@@ -57,7 +60,7 @@ class TestBlurhashAvif(unittest.TestCase):
         image.save(image_path, "AVIF")
 
         # Generate the BlurHash and PNG data URL
-        blurhash, data_url = generate_blurhash_and_data_url_from_avif(image_path)
+        blurhash, data_url = encode_blurhash_and_pda(image_path)
 
         # Check that the BlurHash is not None
         self.assertIsNotNone(blurhash)
@@ -76,6 +79,50 @@ class TestBlurhashAvif(unittest.TestCase):
 
         # Remove the test image
         Path(image_path).unlink()
+
+    def test_encode_nonexistent_path(self) -> None:
+        with self.assertRaises(PathError):
+            encode("nonexistent.avif")
+
+    def test_encode_empty_file(self) -> None:
+        image_path = "tests/empty.avif"
+        Path(image_path).touch()
+        try:
+            with self.assertRaises(BlurHashEncodeError):
+                encode(image_path)
+        finally:
+            Path(image_path).unlink(missing_ok=True)
+
+    def test_encode_non_image_file(self) -> None:
+        image_path = "tests/bad.avif"
+        Path(image_path).write_text("not an image", encoding="utf-8")
+        try:
+            with self.assertRaises(BlurHashEncodeError):
+                encode(image_path)
+        finally:
+            Path(image_path).unlink(missing_ok=True)
+
+    def test_encode_pdu_nonexistent_path(self) -> None:
+        with self.assertRaises(PathError):
+            encode_pdu("nonexistent.avif")
+
+    def test_encode_pdu_empty_file(self) -> None:
+        image_path = "tests/empty.avif"
+        Path(image_path).touch()
+        try:
+            with self.assertRaises(AvifPngDataUrlError):
+                encode_pdu(image_path)
+        finally:
+            Path(image_path).unlink(missing_ok=True)
+
+    def test_encode_pdu_non_image_file(self) -> None:
+        image_path = "tests/bad.avif"
+        Path(image_path).write_text("not an image", encoding="utf-8")
+        try:
+            with self.assertRaises(AvifPngDataUrlError):
+                encode_pdu(image_path)
+        finally:
+            Path(image_path).unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

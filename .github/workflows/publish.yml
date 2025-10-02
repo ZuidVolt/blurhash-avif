@@ -1,0 +1,58 @@
+name: "Publish"
+
+# Trigger on tags starting with "v", e.g. v0.1.0
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    # Use the pypi environment (create this in GitHub repo Settings → Environments)
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+
+    # Required for PyPI's Trusted Publisher (OIDC) flow: allow short-lived id tokens
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install uv
+        # recommended action from the uv docs; pin to a release if you prefer
+        uses: astral-sh/setup-uv@v6
+        with:
+          # optional: pin a uv version (replace with desired version)
+          # version: "0.8.22"
+          enable-cache: true
+
+      - name: Install Python (project's preferred runtime)
+        # example: install Python 3.13 as the docs illustrate
+        run: uv python install 3.13
+
+      - name: Install project (sync)
+        # make sure dependencies are installed (locked install)
+        run: uv sync --locked --all-extras --dev
+
+      - name: Build distributions
+        run: uv build
+
+      # # Optional smoke tests — highly recommended (adjust path if you don't have these tests)
+      # - name: Smoke test (wheel)
+      #   if: always()
+      #   run: |
+      #     # run tests against the wheel to ensure important files are included
+      #     uv run --isolated --no-project --with dist/*.whl tests/smoke_test.py
+
+      # - name: Smoke test (sdist)
+      #   if: always()
+      #   run: |
+      #     uv run --isolated --no-project --with dist/*.tar.gz tests/smoke_test.py
+
+      # Publish using uv's publish command
+      - name: Publish to PyPI
+        run: uv publish
