@@ -29,7 +29,7 @@ jobs:
               - 'requirements-dev.txt'
               - 'pyproject.toml'
               - 'uv.lock'
-              - '.github/workflows/CI.yaml'
+              - '.github/workflows/CI.yml'
 
   # Python-specific checks only run when Python files change
   python-checks:
