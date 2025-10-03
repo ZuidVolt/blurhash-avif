@@ -528,13 +528,13 @@ def _simple_blurhash_validation(blurhash_string: str) -> bool:
     return all(c in valid_chars for c in blurhash_string)
 
 
-def decode_to_pil_format(blurhash_string: str, width: float, height: float, punch: float = 1.0) -> PILImage:
+def decode_to_pil_format(blurhash_string: str, width: int, height: int, punch: float = 1.0) -> PILImage:
     """Decode a BlurHash string into a PIL Image object.
 
     Args:
         blurhash_string (str): The BlurHash string to decode.
-        width (float): The desired width of the output image (must be positive).
-        height (float): The desired height of the output image (must be positive).
+        width (int): The desired width of the output image (must be positive).
+        height (int): The desired height of the output image (must be positive).
         punch (float): Contrast adjustment factor (default: 1.0).
                     - Values < 1.0 reduce contrast (softer, more blurred)
                     - Values > 1.0 increase contrast (sharper, more defined)
@@ -639,8 +639,8 @@ def decode(  # noqa: PLR0917
     output_path: str | Path,
     blurhash_string: str,
     filename: str = "output.png",
-    width: float = 400,
-    height: float = 300,
+    width: int = 400,
+    height: int = 300,
     punch: float = 1.0,
     optimize: bool = True,  # noqa: FBT001, FBT002
     interlaced: bool = True,  # noqa: FBT001, FBT002
@@ -651,8 +651,8 @@ def decode(  # noqa: PLR0917
         output_path (str | Path): Directory where the decoded image will be saved.
         blurhash_string (str): The BlurHash string to decode.
         filename (str): Output filename (default: "output.png").
-        width (float): Output image width in pixels (default: 400).
-        height (float): Output image height in pixels (default: 300).
+        width (int): Output image width in pixels (default: 400).
+        height (int): Output image height in pixels (default: 300).
         punch (float): Contrast adjustment factor (default: 1.0).
                     - Values < 1.0 reduce contrast (softer, more blurred)
                     - Values > 1.0 increase contrast (sharper, more defined)
