@@ -208,8 +208,7 @@ def _encode_pdu_from_image(
 
     Raises:
         AvifPngDataUrlError: If encoding fails or dimensions are invalid.
-        ValueError: If max_dimension is not positive, If max_dimension is not positive,
-        or if the resampling method value is invalid.
+        ValueError: If max_dimension is not positive or if the resampling method value is invalid.
     """
     # Validate max_dimension
     if max_dimension <= 0:
@@ -597,8 +596,8 @@ def save_image_png(image: PILImage, filename: str | Path, *, optimize: bool = Tr
         ValueError: If the image or filename is invalid.
         ImageSaveError: If the image cannot be saved.
     """
-    if not image:
-        msg = "Image cannot be empty"
+    if image is None:
+        msg = "Image cannot be of type None"
         raise ValueError(msg)
 
     if not filename:
