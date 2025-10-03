@@ -80,7 +80,7 @@ def _validate_and_resolve_path(image_path: str | Path, *, require_avif: bool = F
         raise PathError(msg)
 
     if require_avif and path_obj.suffix.lower() != ".avif":
-        msg = f"Expected AVIF file, got: {path_obj.suffix}"
+        msg = f"Expected AVIF file Extension, got: {path_obj.suffix}"
         raise PathError(msg)
 
     return path_obj

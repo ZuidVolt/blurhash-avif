@@ -1,5 +1,6 @@
 # src/blurhash_avif/__init__.py
 from .blurhash_avif import (
+    MAX_AVIF_IMAGE_EDGE_SIZE,
     AvifPngDataUrlError,
     BlurHashAvifError,
     BlurHashDecodeError,
@@ -20,6 +21,7 @@ from .blurhash_avif import (
 )
 
 __all__ = [
+    "MAX_AVIF_IMAGE_EDGE_SIZE",
     "AvifPngDataUrlError",
     "BlurHashAvifError",
     "BlurHashDecodeError",
