@@ -80,7 +80,7 @@ def _validate_and_resolve_path(image_path: str | Path, *, require_avif: bool = F
         raise PathError(msg)
 
     if require_avif and path_obj.suffix.lower() != ".avif":
-        msg = f"Expected AVIF file Extension, got: {path_obj.suffix}"
+        msg = f"Expected AVIF file extension, got: {path_obj.suffix}"
         raise PathError(msg)
 
     return path_obj
@@ -126,7 +126,7 @@ def _downsample_image_if_needed(
     if image.width <= max_dimension and image.height <= max_dimension:
         return image
 
-    # Use PIL's thumbnail for correct aspect ratio preservation
+    # Uses PIL's thumbnail for correct aspect ratio preservation
     image_copy = image.copy()
     image_copy.thumbnail((max_dimension, max_dimension), resampling_method_id)
     return image_copy
