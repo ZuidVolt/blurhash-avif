@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "blurhash-avif"
-version = "0.8.4"
+version = "0.8.5"
 description = "A library to generate BlurHash and PNG data URLs for AVIF images"
 readme = "README.md"
 readme-content-type = "text/markdown"
@@ -62,7 +62,7 @@ select = [
   "SIM", "NPY", "PD", "ARG", "TID", "PTH", "ISC", "PIE", "YTT", "ASYNC", "C4",
   "T10", "COM", "RSE", "PGH", "PLR", "PLC", "PGH", "FURB", "PLW", "TRY", "PERF",
   "EXE", "DTZ", "INT", "ISC", "ICN", "LOG", "FLY", "EM", "SLF", "SLOT",
-  "BLE", "ANN", "TC",
+  "BLE", "ANN", "TC", "FBT"
 ]
 ignore = [
   "PLR0913", "PLR0911", "PLR0914", "PLR6301", "E501", "G004", "RUF100",
