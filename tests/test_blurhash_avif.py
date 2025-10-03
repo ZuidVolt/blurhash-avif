@@ -8,6 +8,7 @@ try:
     from src.blurhash_avif import (
         AvifPngDataUrlError,
         PathError,
+        _simple_blurhash_validation,
         batch_encode,
         batch_encode_blurhash_and_pdu,
         batch_encode_pdu,
@@ -16,13 +17,13 @@ try:
         encode,
         encode_blurhash_and_pdu,
         encode_pdu,
-        is_valid_blurhash,
         save_image_png,
     )
 except ImportError:
     from blurhash_avif import (
         AvifPngDataUrlError,
         PathError,
+        _simple_blurhash_validation,  # noqa: PLC2701
         batch_encode,
         batch_encode_blurhash_and_pdu,
         batch_encode_pdu,
@@ -31,7 +32,6 @@ except ImportError:
         encode,
         encode_blurhash_and_pdu,
         encode_pdu,
-        is_valid_blurhash,
         save_image_png,
     )
 
@@ -365,7 +365,7 @@ class TestBlurhashAvif(unittest.TestCase):  # noqa: PLR0904
         ]
 
         for hash_str in valid_hashes:
-            self.assertTrue(is_valid_blurhash(hash_str), f"Failed for: {hash_str}")
+            self.assertTrue(_simple_blurhash_validation(hash_str), f"Failed for: {hash_str}")
 
     def test_is_valid_blurhash_invalid(self) -> None:
         """Test validation of invalid BlurHash strings."""
@@ -378,7 +378,7 @@ class TestBlurhashAvif(unittest.TestCase):  # noqa: PLR0904
 
         for hash_str in invalid_hashes:
             if hash_str is not None:
-                self.assertFalse(is_valid_blurhash(hash_str), f"Should fail for: {hash_str}")
+                self.assertFalse(_simple_blurhash_validation(hash_str), f"Should fail for: {hash_str}")
 
     # ===== Decoding Tests =====
 

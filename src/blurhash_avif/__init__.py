@@ -1,11 +1,14 @@
 # src/blurhash_avif/__init__.py
 from .blurhash_avif import (
+    MAX_AVIF_IMAGE_EDGE_SIZE,
     AvifPngDataUrlError,
     BlurHashAvifError,
     BlurHashDecodeError,
     BlurHashEncodeError,
     ImageSaveError,
     PathError,
+    ResamplingMethod,
+    _simple_blurhash_validation,
     batch_encode,
     batch_encode_blurhash_and_pdu,
     batch_encode_pdu,
@@ -14,17 +17,19 @@ from .blurhash_avif import (
     encode,
     encode_blurhash_and_pdu,
     encode_pdu,
-    is_valid_blurhash,
     save_image_png,
 )
 
 __all__ = [
+    "MAX_AVIF_IMAGE_EDGE_SIZE",
     "AvifPngDataUrlError",
     "BlurHashAvifError",
     "BlurHashDecodeError",
     "BlurHashEncodeError",
     "ImageSaveError",
     "PathError",
+    "ResamplingMethod",
+    "_simple_blurhash_validation",
     "batch_encode",
     "batch_encode_blurhash_and_pdu",
     "batch_encode_pdu",
@@ -33,6 +38,5 @@ __all__ = [
     "encode",
     "encode_blurhash_and_pdu",
     "encode_pdu",
-    "is_valid_blurhash",
     "save_image_png",
 ]

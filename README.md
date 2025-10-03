@@ -76,7 +76,7 @@ bh, pdu = bha.encode_blurhash_and_pda(avif_path, x_components=4, y_components=4,
 print("got both ->", bool(bh), bool(pdu))
 
 # 4) Batch: all .avif files in a directory
-results = bha.batch_encode("assets/")            # returns dict(filename -> blurhash_or_None)
+results: dict[str, Optional[str]] = bha.batch_encode("assets/") # returns dict(filename -> blurhash_or_None)
 valid_files = [name for name, h in results.items() if h]
 print("Valid blurhash files:", ", ".join(valid_files) or "<none>")
 
